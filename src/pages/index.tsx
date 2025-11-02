@@ -13,14 +13,20 @@ export default function ProductsPage() {
   const [error, setError] = useState<string | null>(null)
   const [showAddModal, setShowAddModal] = useState<boolean>(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [query, setQuery] = useState<string>('')
 
   useEffect(() => {
     let isMounted = true
+    let timer: ReturnType<typeof setTimeout> | null = null
 
-    const fetchProducts = async () => {
-      setLoading(true)
+    const fetchProducts = async (q = '') => {
+      if (isMounted) setLoading(true)
       try {
-        const { data, error } = await supabase.from('products').select('*')
+        const builder = supabase.from('products').select('*')
+        const res = q.trim()
+          ? await builder.ilike('name', `%${q.trim()}%`)
+          : await builder
+        const { data, error } = res as any
         if (!isMounted) return
         if (error) {
           setError(error.message)
@@ -38,11 +44,13 @@ export default function ProductsPage() {
       }
     }
 
-    fetchProducts()
+    timer = setTimeout(() => fetchProducts(query), 300)
+
     return () => {
       isMounted = false
+      if (timer) clearTimeout(timer)
     }
-  }, [])
+  }, [query])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Удалить товар?')) return
@@ -65,6 +73,33 @@ export default function ProductsPage() {
   return (
     <div className={s.container}>
       <h1 className={s.title}>Список товаров</h1>
+
+      <div style={{ display: 'flex', gap: 12, marginBottom: 12, alignItems: 'center' }}>
+        <input
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Поиск по названию"
+          aria-label="Поиск по названию"
+          style={{
+            padding: '8px 10px',
+            borderRadius: 6,
+            border: '1px solid #ccc',
+            width: 320
+          }}
+        />
+        <button
+          onClick={() => setQuery('')}
+          style={{
+            padding: '8px 10px',
+            borderRadius: 6,
+            border: '1px solid #ccc',
+            background: '#f3f4f6',
+            cursor: 'pointer'
+          }}
+        >
+          Сброс
+        </button>
+      </div>
 
       <div className={s.about}>
         <p>Название</p>

@@ -20,9 +20,11 @@
     }
 }
 .list {
+    background-color:#f3f1f1 ;
     display: flex;
     justify-content: space-around;
     border: 0.5px solid #ccc;
+    align-items: center;
     p {
         text-align: center;
         margin-right: 35px;
