@@ -1,0 +1,75 @@
+// ...existing code...
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+.about {
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+    p {
+        text-align: center;
+        margin-right: 35px;
+        font-weight: bold;
+    }
+}
+.list {
+    display: flex;
+    justify-content: space-around;
+    border: 0.5px solid #ccc;
+    p {
+        text-align: center;
+        margin-right: 35px;
+    }
+}
+
+/* Добавленные стили для кнопки и модального окна */
+.addButton {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(37,99,235,0.2);
+    z-index: 60;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 70;
+}
+
+.modalContent {
+    background: #fff;
+    width: 480px;
+    max-width: calc(100% - 32px);
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+}
+
+.modalClose {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+ // ...existing code...

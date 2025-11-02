@@ -1,0 +1,22 @@
+{
+  "name": "nextjs-product-component",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.78.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "sass": "^1.93.3"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "typescript": "latest"
+  }
+}
