@@ -5,6 +5,7 @@ import { supabase } from '../utils/supabase'
 import { Product } from '../types'
 import s from './styles.module.scss'
 import AddProduct from '../components/AddProduct'
+import SellModal from '../components/SellModal'
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[] | null>(null)
@@ -17,6 +18,8 @@ export default function ProductsPage() {
   const [editId, setEditId] = useState<string | null>(null)
   const [editFields, setEditFields] = useState<{ name: string; description: string; price: number; quantity: number } | null>(null)
   const [savingId, setSavingId] = useState<string | null>(null)
+    const [sellTarget, setSellTarget] = useState<{ id: string; name: string; qty: number } | null>(null)
+
 
   const fetchProducts = async (q = '') => {
     setLoading(true)
@@ -106,6 +109,15 @@ export default function ProductsPage() {
     } finally {
       setSavingId(null)
     }
+    
+  }
+   const handleOpenSell = (p: Product) => {
+    setSellTarget({ id: String(p.id), name: p.name ?? '', qty: Number(p.quantity ?? 0) })
+  }
+
+  const handleSold = (updatedProduct: any) => {
+    setProducts(prev => prev ? prev.map(p => (String(p.id) === String(updatedProduct.id) ? updatedProduct : p)) : [updatedProduct])
+    setSellTarget(null)
   }
 
   if (loading) return <p className="p-6">Загрузка...</p>
@@ -211,6 +223,9 @@ export default function ProductsPage() {
                     </>
                   ) : (
                     <>
+                    <button onClick={() => handleOpenSell(p)} className={s.addButton} style={{ background: '#10b981' }}>
+                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 17V17.5V18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M12 6V6.5V7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M15 9.5C15 8.11929 13.6569 7 12 7C10.3431 7 9 8.11929 9 9.5C9 10.8807 10.3431 12 12 12C13.6569 12 15 13.1193 15 14.5C15 15.8807 13.6569 17 12 17C10.3431 17 9 15.8807 9 14.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+                      </button>
                       <button onClick={() => handleEdit(p)} className={s.addButton} style={{ background: '#f59e0b' }}>
                         <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M20.8477 1.87868C19.6761 0.707109 17.7766 0.707105 16.605 1.87868L2.44744 16.0363C2.02864 16.4551 1.74317 16.9885 1.62702 17.5692L1.03995 20.5046C0.760062 21.904 1.9939 23.1379 3.39334 22.858L6.32868 22.2709C6.90945 22.1548 7.44285 21.8693 7.86165 21.4505L22.0192 7.29289C23.1908 6.12132 23.1908 4.22183 22.0192 3.05025L20.8477 1.87868ZM18.0192 3.29289C18.4098 2.90237 19.0429 2.90237 19.4335 3.29289L20.605 4.46447C20.9956 4.85499 20.9956 5.48815 20.605 5.87868L17.9334 8.55027L15.3477 5.96448L18.0192 3.29289ZM13.9334 7.3787L3.86165 17.4505C3.72205 17.5901 3.6269 17.7679 3.58818 17.9615L3.00111 20.8968L5.93645 20.3097C6.13004 20.271 6.30784 20.1759 6.44744 20.0363L16.5192 9.96448L13.9334 7.3787Z" fill="#ffffff"></path> </g></svg>
                       </button>
@@ -247,6 +262,15 @@ export default function ProductsPage() {
             />
           </div>
         </div>
+      )}
+      {sellTarget && (
+        <SellModal
+          productId={sellTarget.id}
+          productName={sellTarget.name}
+          currentQty={sellTarget.qty}
+          onClose={() => setSellTarget(null)}
+          onSold={handleSold}
+        />
       )}
     </div>
   )
