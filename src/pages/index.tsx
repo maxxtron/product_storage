@@ -1,4 +1,3 @@
-// ...existing code...
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
@@ -6,8 +5,6 @@ import { supabase } from '../utils/supabase'
 import { Product } from '../types'
 import s from './styles.module.scss'
 import AddProduct from '../components/AddProduct'
-import accept from '../img/check-svgrepo-com.svg'
-import cancel from '../img/cancel-svgrepo-com.svg'
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[] | null>(null)
@@ -138,7 +135,7 @@ export default function ProductsPage() {
         <div>Название</div>
         <div>Описание</div>
         <div>Цена</div>
-        <div>Количество</div>
+        <div>Остаток</div>
         <div></div>
       </div>
 
