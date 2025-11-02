@@ -202,7 +202,7 @@ export default function ProductsPage() {
                       style={{ padding: 6, width: 120 }}
                     />
                   ) : (
-                    `${p.price}₴`
+                    `${p.price} ₴`
                   )}
                 </div>
                 <div className={s.cell}>
