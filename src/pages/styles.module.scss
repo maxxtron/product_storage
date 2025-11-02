@@ -1,77 +1,153 @@
-// ...existing code...
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 24px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  position: relative;
 }
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 6px;
+  position: sticky;
+  top: 24px;
+  z-index: 40;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+/* добавил небольшой отступ сверху списка, чтобы не прилегал вплотную к залипающему заголовку */
+.listWrap {
+  width: 100%;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
 .title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-.about {
-    display: flex;
-    justify-content: space-around;
-    border: 1px solid #ccc;
-    p {
-        text-align: center;
-        margin-right: 35px;
-        font-weight: bold;
-    }
-}
-.list {
-    background-color:#f3f1f1 ;
-    display: flex;
-    justify-content: space-around;
-    border: 0.5px solid #ccc;
-    align-items: center;
-    p {
-        text-align: center;
-        margin-right: 35px;
-    }
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 18px;
 }
 
-/* Добавленные стили для кнопки и модального окна */
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.search {
+  flex: 1 1 420px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.reset {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
 .addButton {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    background: #2563eb;
-    color: #fff;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(37,99,235,0.2);
-    z-index: 60;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #10b981;
+  color: #fff;
+  cursor: pointer;
 }
 
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f7f7f7;
+  border-radius: 6px;
+  font-weight: 600;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 6px;
+}
+
+.listWrap {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.listRow {
+  display: grid;
+  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border-bottom: 1px solid #e6e6e6;
+  background: #fff;
+}
+
+.cell {
+  font-size: 15px;
+  color: #111827;
+  word-break: break-word;
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.empty {
+  padding: 18px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* modal styles remain same */
 .modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 70;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 70;
 }
-
 .modalContent {
-    background: #fff;
-    width: 480px;
-    max-width: calc(100% - 32px);
-    border-radius: 8px;
-    padding: 16px;
-    position: relative;
+  background: #fff;
+  width: 480px;
+  max-width: calc(100% - 32px);
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
 }
-
 .modalClose {
-    position: absolute;
-    right: 8px;
-    top: 6px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
- // ...existing code...
