@@ -120,7 +120,17 @@ export default function ProductsPage() {
     setSellTarget(null)
   }
 
-  if (loading) return <p className="p-6">Загрузка...</p>
+  if (loading) {
+    return (
+      <div className={s.preloaderWrap}>
+        <div className={s.preloader}>
+          <div className={s.spinner} />
+          <div className={s.preloaderText}>Загрузка товаров...</div>
+        </div>
+      </div>
+    )
+  }
+
   if (error) return <p className="p-6">Ошибка загрузки товаров: {error}</p>
 
   return (
