@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { supabase } from '../utils/supabase'
+import s from '../pages/styles.module.scss'
 
 type Props = {
   onClose?: () => void
@@ -46,48 +47,55 @@ export default function AddProduct({ onClose, onAdded }: Props) {
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-3">Добавить товар</h2>
-
+    <div className={s.containerModal}>
+      <h2>Добавить товар</h2>
+      <div className={s.inputContainer}>
+      <p>Название</p>
       <input
         placeholder="Название"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="border p-2 mb-2 w-full"
+        className={s.inputAdd}
       />
-      <input
+      </div>
+      {/* <input
         placeholder="Описание"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         className="border p-2 mb-2 w-full"
-      />
+      /> */}
+      <div className={s.inputContainer}>
+        <p>Цена</p>
       <input
         type="number"
         placeholder="Цена"
         value={price}
         onChange={(e) => setPrice(Number(e.target.value))}
-        className="border p-2 mb-2 w-full"
+        className={s.inputAdd}
       />
+      </div>
+      <div className={s.inputContainer}>
+        <p>Количество</p>
       <input
         type="number"
         placeholder="Количество"
         value={quantity}
         onChange={(e) => setQuantity(Number(e.target.value))}
-        className="border p-2 mb-2 w-full"
+        className={s.inputAdd}
       />
-
+</div>
       <div className="flex gap-2">
         <button
           onClick={handleAddProduct}
           disabled={loading}
-          className="bg-blue-500 text-white p-2 rounded"
+          className={s.addButton}
         >
           {loading ? 'Добавление...' : 'Добавить'}
         </button>
 
         <button
           onClick={() => onClose?.()}
-          className="border p-2 rounded"
+          className={`${s.addButton} ${s.addButtonCancel}`}
         >
           Отмена
         </button>

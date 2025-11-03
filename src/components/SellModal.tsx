@@ -72,7 +72,7 @@ export default function SellModal({ productId, productName, currentQty, onClose,
           onChange={(e) => handleChange(e.target.value)}
           onFocus={() => { if (sold === '0') setSold('') }}
           placeholder="0"
-          style={{ width: '100%', padding: 8, marginBottom: 10, boxSizing: 'border-box' }}
+          style={{border: '0.5px solid #d1d5db' , borderRadius: '6px', outline: 'none' ,width: '100%', padding: 8, marginBottom: 10, boxSizing: 'border-box' }}
         />
 
         <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>

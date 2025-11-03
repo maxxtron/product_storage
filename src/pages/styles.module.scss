@@ -10,7 +10,7 @@
 
 .tableHeader {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  grid-template-columns: 3fr 1fr 1fr 1fr 10px;
   gap: 12px;
   padding: 12px 14px;
   background: #fff;
@@ -58,11 +58,15 @@
 }
 
 .reset {
-  padding: 10px 14px;
+  padding: 5px 15px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   background: #f3f4f6;
   cursor: pointer;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #e5e7eb;
+  }
 }
 
 .addButton {
@@ -72,11 +76,15 @@
   background: #10b981;
   color: #fff;
   cursor: pointer;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #059669;
+  }
 }
 
 .tableHeader {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  grid-template-columns: 3fr 1fr 1fr 1fr 10px;
   gap: 12px;
   padding: 12px 14px;
   background: #f7f7f7;
@@ -95,7 +103,7 @@
 
 .listRow {
   display: grid;
-  grid-template-columns: 2fr 3fr 1fr 1fr 120px;
+  grid-template-columns: 3fr 1fr 1fr 1fr 10px;
   gap: 12px;
   align-items: center;
   padding: 14px;
@@ -116,6 +124,10 @@
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #dc2626;
+  }
 }
 
 .empty {
@@ -185,4 +197,44 @@
   color: #ffffff;
   font-weight: 600;
   font-size: 25px;
+}
+.containerModal {
+  // margin: 0 auto;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: start;
+  :first-child {
+    margin-bottom: 16px;
+    text-align: center
+  }
+}
+.inputContainer {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    margin-right: 8px;
+    font-weight: 500;
+    align-self: center;
+  }
+  input {
+    border:0.5px solid #d1d5db;
+    border-radius: 6px;
+    width: 320px;
+    max-width: 100%;
+    padding: 0 15px;
+    min-height: 35px;
+    outline-color: #bbbec3;
+  }
+}
+.addButtonCancel {
+  background: #ef4444;
+  margin-left: 8px;
+  transition: background 0.3s ease;
+  &:hover {
+    background: #dc2626;
+  }
 }
