@@ -1,6 +1,7 @@
+// ...existing code...
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '../utils/supabase'
 import s from '../pages/styles.module.scss'
 
@@ -13,23 +14,35 @@ type Props = {
 }
 
 export default function SellModal({ productId, productName, currentQty, onClose, onSold }: Props) {
-  const [sold, setSold] = useState<number>(0)
+  const [sold, setSold] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  useEffect(() => {
+    setSold('')
+    setError(null)
+    setLoading(false)
+  }, [productId])
+
+  const handleChange = (value: string) => {
+    const digits = value.replace(/\D/g, '')
+    setSold(digits)
+  }
+
   const handleSubmit = async () => {
     setError(null)
-    if (sold <= 0) {
+    const soldNum = Number(sold)
+    if (!sold || Number.isNaN(soldNum) || soldNum <= 0) {
       setError('Введите положительное количество')
       return
     }
-    if (sold > currentQty) {
+    if (soldNum > currentQty) {
       setError('Нельзя продать больше, чем есть на складе')
       return
     }
     setLoading(true)
     try {
-      const newQty = currentQty - sold
+      const newQty = currentQty - soldNum
       const res = await supabase.from('products').update({ quantity: newQty }).eq('id', productId).select()
       const { data, error } = res as any
       if (error) {
@@ -51,22 +64,27 @@ export default function SellModal({ productId, productName, currentQty, onClose,
         <button className={s.modalClose} onClick={onClose}>×</button>
         <h3 style={{ marginBottom: 12 }}>Продать: {productName}</h3>
         <p style={{ marginBottom: 8 }}>На складе: {currentQty} шт.</p>
+
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           value={sold}
-          min={0}
-          onChange={(e) => setSold(Number(e.target.value))}
+          onChange={(e) => handleChange(e.target.value)}
+          onFocus={() => { if (sold === '0') setSold('') }}
+          placeholder="0"
           style={{ width: '100%', padding: 8, marginBottom: 10, boxSizing: 'border-box' }}
-          placeholder="Количество проданных"
         />
+
         <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
           <button onClick={onClose} className={s.reset}>Отмена</button>
           <button onClick={handleSubmit} disabled={loading} className={s.addButton} style={{ background: '#2563eb' }}>
             {loading ? 'Сохранение...' : 'Продать'}
           </button>
         </div>
+
         {error && <p style={{ color: '#ef4444', marginTop: 10 }}>{error}</p>}
       </div>
     </div>
   )
 }
+// ...existing code...
